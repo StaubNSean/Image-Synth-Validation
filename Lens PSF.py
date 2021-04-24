@@ -3,6 +3,7 @@
 Created on Fri Apr 23 15:03:43 2021
 
 @author: Sean
+Prysm author: Brandon Dube
 """
 
 from prysm.coordinates import make_xy_grid, cart_to_polar
