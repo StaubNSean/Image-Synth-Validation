@@ -30,7 +30,6 @@ def circular_lens_spherical_aberration(d, fno, wlen, samp, Q, z):
     spherical aberration will have on the incoming wavefront, this is done
     by specifying 'z'.
     
-
     Parameters
     ----------
     d : 'int'
@@ -94,6 +93,14 @@ def circular_lens_spherical_aberration(d, fno, wlen, samp, Q, z):
 def plot_PSF(psf,wlen, fno, clim=None):
     """Plots the Intensity/Incoherent point spread function of a lens.
     
+    This function plots a given PSF. The PSF of a lens can
+    be thought of as a filter that can be applied to an
+    image by convolution to simulate the imaging capabilites of
+    a given lens. The PSF is generally quite small and this needs to
+    be accounted for when plotting. Specifying the wavelength, 'wlen', and 
+    F-Number, 'fno', allow the function to automatically scale the range
+    in which to plot the PSF. The input variable 'clim' is the contrast
+    limit to be used, and can be selected to help visualize the PSF.
 
     Parameters
     ----------
@@ -111,7 +118,12 @@ def plot_PSF(psf,wlen, fno, clim=None):
     Returns
     -------
     None.
-
+    
+    Examples
+    --------
+    >>> plot_PSF(psf, 0.6328, 10, (1e5,3e9))
+    >>> "Generates a plot"
+    
     """
     # Constructs plotting region to be displayed.
     psf_radius = 1.22*wlen*fno
