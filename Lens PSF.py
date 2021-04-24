@@ -11,10 +11,24 @@ from prysm.geometry import circle
 from prysm.polynomials import hopkins
 from prysm.propagation import Wavefront
 
-def spherical_lens_spherical_aberration(d, fno, wlen, samp, Q, z):
+def circular_lens_spherical_aberration(d, fno, wlen, samp, Q, z):
     """Constructs the Intensity/Incoherent point spread function of a
-    spherical lens, accounting for aperture diffraction and spherical
+    circular lens, accounting for aperture diffraction and spherical
     aberration.
+    
+    This function is used to construct what is called the "intensity" or 
+    "incoherent" point spread function (PSF) of a circular lens. Aperture diffraction
+    and spherical aberration are accounted for. This function allows the user
+    to specify the transverse diamter 'd' and the F-Number 'fno' of the lens.
+    The PSF of a lens is wavelength dependent and the user specifies this using
+    'wlen'. Since this is a digital simulation of a lens, the user needs to
+    specify how many samples will be used to model the digital plane where
+    the lens exists, this is done with 'samp'. The user also needs to define
+    'Q', which can be thought of as a padding factor that helps improve 
+    spatial resolution of the PSF. The spherical aberration modeled here
+    requires the user to scale the "magnitude" of the effect the 
+    spherical aberration will have on the incoming wavefront, this is done
+    by specifying 'z'.
     
 
     Parameters
@@ -38,6 +52,11 @@ def spherical_lens_spherical_aberration(d, fno, wlen, samp, Q, z):
     -------
     psf : RichData object
         Intensity/Incoherent point spread function of lens.
+        
+    Examples
+    --------
+    >>> PSF = circular_lens_spherical_aberration(10, 10, 0.6328, 256, 8, 100)
+    >>>
 
     """
     # Construct sample grid with side lengths d, xi and eta are cartesian components.
